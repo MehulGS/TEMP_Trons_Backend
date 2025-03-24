@@ -26,8 +26,7 @@ This is a Node.js and Express-based backend API for an appointment booking syste
 
 ### **1️⃣ Clone the Repository**
 ```sh
-git clone https://github.com/your-repo-link.git
-cd appointment-backend
+git clone https://github.com/MehulGS/TEMP_Trons_Backend.git
 ```
 
 ### **2️⃣ Install Dependencies**
