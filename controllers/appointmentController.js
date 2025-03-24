@@ -64,6 +64,37 @@ const editAppointment = async (req, res) => {
     }
 };
 
+// Edit an appointment by name
+const editAppointmentByName = async (req, res) => {
+    const { firstName } = req.params;
+    const { newTimeSlot, phoneNumber } = req.body;
+
+    console.log("Editing appointment for:", firstName);
+
+    try {
+        let appointment = await Appointment.findOne({ firstName });
+        if (!appointment) {
+            return res.status(404).json({ message: "Appointment not found" });
+        }
+
+        if (newTimeSlot && newTimeSlot !== appointment.timeSlot) {
+            const existingAppointment = await Appointment.findOne({ timeSlot: newTimeSlot });
+            if (existingAppointment) {
+                return res.status(400).json({ message: "New time slot is already booked" });
+            }
+            appointment.timeSlot = newTimeSlot;
+        }
+
+        appointment.phoneNumber = phoneNumber || appointment.phoneNumber;
+
+        await appointment.save();
+        res.json(appointment);
+    } catch (error) {
+        console.error("Error updating appointment:", error);
+        res.status(500).json({ message: error.message });
+    }
+};
+
 // Delete an appointment
 const deleteAppointment = async (req, res) => {
     try {
@@ -75,5 +106,23 @@ const deleteAppointment = async (req, res) => {
     }
 };
 
+// Delete an appointment by name
+const deletebynameAppointment = async (req, res) => {
+    try {
+        const appointment = await Appointment.findOneAndDelete({ firstName: req.params.firstName });
+        if (!appointment) return res.status(404).json({ message: 'Appointment not found' });
+        res.json({ message: 'Appointment deleted' });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
 
-module.exports = { getAppointments, bookAppointment, editAppointment, deleteAppointment};
+
+module.exports = {
+    getAppointments,
+    bookAppointment,
+    editAppointment,
+    deleteAppointment,
+    editAppointmentByName,
+    deletebynameAppointment
+};

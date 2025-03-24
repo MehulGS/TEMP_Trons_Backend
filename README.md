@@ -65,6 +65,8 @@ Server will run on **http://localhost:5000**.
 | POST | `/api/appointments` | Book an appointment (Protected) |
 | DELETE | `/api/appointments/:timeSlot` | Cancel an appointment (Protected) |
 | PUT | `/api/appointments/:timeSlot` | Edit an appointment (Protected) |
+| PUT | `/api/appointments/name/:firstName` | Edit an appointment by name (Protected) |
+| DELETE | `/api/appointments/name/:firstName` | Cancel an appointment by name (Protected) |
 ---
 
 ## 🔬 Postman Collection
