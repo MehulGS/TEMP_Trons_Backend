@@ -75,30 +75,5 @@ const deleteAppointment = async (req, res) => {
     }
 };
 
-// Get appointments by user
-const getUserAppointments = async (req, res) => {
-    try {
-        const appointments = await Appointment.find({ userId: req.params.userId });
-        res.json(appointments);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-};
 
-
-// Get appointments by first name
-const getAppointmentsByFirstName = async (req, res) => {
-    try {
-        const { firstName } = req.params;
-        const appointments = await Appointment.find({ firstName: { $regex: new RegExp(firstName, 'i') } }); // Case-insensitive search
-        if (!appointments.length) {
-            return res.status(404).json({ message: "No appointments found for this name" });
-        }
-        res.json(appointments);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-};
-
-
-module.exports = { getAppointments, bookAppointment, editAppointment, deleteAppointment, getUserAppointments, getAppointmentsByFirstName };
+module.exports = { getAppointments, bookAppointment, editAppointment, deleteAppointment};

@@ -8,7 +8,6 @@ router.get('/', getAppointments);
 router.post('/', authMiddleware, bookAppointment); 
 router.put('/:timeSlot', authMiddleware, editAppointment); 
 router.delete('/:timeSlot', authMiddleware, deleteAppointment); 
-router.get('/user/:userId', authMiddleware, getUserAppointments); 
-router.get('/name/:firstName', authMiddleware, getAppointmentsByFirstName); 
+
 
 module.exports = router;
